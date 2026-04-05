@@ -88,3 +88,64 @@ resource "azurerm_linux_function_app" "main" {
 
   tags = azurerm_resource_group.main.tags
 }
+# PRIVATE ENDPOINT
+# The Consumption (Y1) plan does not support Private Endpoints.
+# Private Endpoints require upgrading to Flex Consumption (FC1) or Premium (EP1).
+#
+# To enable, change the Service Plan SKU:
+#   sku_name = "FC1"   (Flex Consumption — serverless with VNet support)
+#   sku_name = "EP1"   (Premium — always warm, VNet support)
+#
+# Then uncomment the lines below.
+
+# resource "azurerm_virtual_network" "main" {
+#   name                = "vnet-${var.project_name}-${var.environment}"
+#   resource_group_name = azurerm_resource_group.main.name
+#   location            = azurerm_resource_group.main.location
+#   address_space       = ["10.0.0.0/16"]
+#
+#   tags = azurerm_resource_group.main.tags
+# }
+
+# resource "azurerm_subnet" "private_endpoints" {
+#   name                 = "snet-private-endpoints"
+#   resource_group_name  = azurerm_resource_group.main.name
+#   virtual_network_name = azurerm_virtual_network.main.name
+#   address_prefixes     = ["10.0.1.0/24"]
+# }
+
+# resource "azurerm_private_dns_zone" "function" {
+#   name                = "privatelink.azurewebsites.net"
+#   resource_group_name = azurerm_resource_group.main.name
+#
+#   tags = azurerm_resource_group.main.tags
+# }
+
+# resource "azurerm_private_dns_zone_virtual_network_link" "function" {
+#   name                  = "vnet-link-${var.project_name}"
+#   resource_group_name   = azurerm_resource_group.main.name
+#   private_dns_zone_name = azurerm_private_dns_zone.function.name
+#   virtual_network_id    = azurerm_virtual_network.main.id
+#   registration_enabled  = false
+# }
+
+# resource "azurerm_private_endpoint" "function" {
+#   name                = "pe-${var.project_name}-${var.environment}"
+#   resource_group_name = azurerm_resource_group.main.name
+#   location            = azurerm_resource_group.main.location
+#   subnet_id           = azurerm_subnet.private_endpoints.id
+#
+#   private_service_connection {
+#     name                           = "psc-${var.project_name}"
+#     private_connection_resource_id = azurerm_linux_function_app.main.id
+#     subresource_names              = ["sites"]
+#     is_manual_connection           = false
+#   }
+#
+#   private_dns_zone_group {
+#     name                 = "dns-zone-group"
+#     private_dns_zone_ids = [azurerm_private_dns_zone.function.id]
+#   }
+#
+#   tags = azurerm_resource_group.main.tags
+# }
