@@ -7,7 +7,7 @@ Terraform to provision all required infrastructure on the Azure Consumption
 - Resource Group
 - Storage Account (LRS, required by Azure Functions runtime)
 - Log Analytics Workspace + Application Insights (monitoring)
-- App Service Plan (Consumption Y1 — free tier)
+- App Service Plan (Consumption Y1 - free tier)
 - Linux Function App (.NET 8 isolated process)
 ## Prerequisites
 | Tool | Version | Install |
@@ -36,7 +36,7 @@ func azure functionapp publish $(terraform -chdir=../terraform output -raw funct
 ```
 ### 4. Get the Function Key
 
-Azure Functions use `AuthorizationLevel.Function` by default, which means every HTTP request must include a secret key — otherwise Azure returns a 401 Unauthorized response. This is a built-in security layer that prevents unauthorized access to your endpoints.
+By default every HTTP request must include a secret key, otherwise Azure returns a 401 Unauthorized response. This is a built-in security layer that prevents unauthorized access to your endpoints.
 
 To retrieve the key:
 
