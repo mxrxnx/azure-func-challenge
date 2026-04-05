@@ -1,4 +1,4 @@
-# Azure Function App — Technical Challenge
+# Azure Function App - Technical Challenge
 ## Architecture
 This project deploys an HTTP-triggered Azure Function (Hello World) using
 Terraform to provision all required infrastructure on the Azure Consumption
