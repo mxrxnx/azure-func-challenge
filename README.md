@@ -14,7 +14,7 @@ Terraform to provision all required infrastructure on the Azure Consumption
 |------|---------|---------|
 | Azure CLI | >= 2.50 | [Install guide](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) |
 | Terraform | >= 1.5 | [Install guide](https://developer.hashicorp.com/terraform/install) |
-| .NET SDK | 8.0 | [Download](https://dotnet.microsoft.com/download/dotnet/8.0) |
+| .NET SDK | 8.0 | [Install guide](https://dotnet.microsoft.com/download/dotnet/8.0) |
 | Azure Functions Core Tools | v4 | [Install guide](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local) |
 ## Deployment Steps
 ### 1. Authenticate to Azure
