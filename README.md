@@ -48,12 +48,38 @@ az functionapp function keys list \
 ```
 
 ## Validation
+
+#### List all resources in the resource group
+
+```bash
+az resource list --resource-group rg-challange040526-dev --output table
+```
+
+#### Check the function app is running
+
+```bash
+az functionapp show \
+  --resource-group rg-challange040526-dev \
+  --name func-challange040526-dev \
+  --query "state" -o tsv
+```
+
+Expected: Running
+
+### Test the HTTP GET Function
+
 ```bash
 curl "https://<function-app-name>.azurewebsites.net/api/httpget?code=<function-key>&name=World"
 ```
 Expected response: `Hello, World!`
 
+You can also paste the URL directly into any browser.
+
+
 ## Cleanup
+
+Remove all Azure resources to avoid any charges:
+
 ```bash
 cd terraform
 terraform destroy
