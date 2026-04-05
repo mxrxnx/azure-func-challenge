@@ -1,0 +1,19 @@
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+
+# .NET
+function/http/bin/
+function/http/obj/
+function/http/publish/
+
+# Azure Functions
+local.settings.json
+
+# Deployment artifacts
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db

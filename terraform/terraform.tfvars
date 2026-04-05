@@ -1,0 +1,5 @@
+project_name   = "challange040526"
+location       = "eastus"
+environment    = "dev"
+owner          = "Matheus"
+dotnet_version = "8.0"
