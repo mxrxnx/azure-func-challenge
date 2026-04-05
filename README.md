@@ -58,3 +58,37 @@ Expected response: `Hello, World!`
 cd terraform
 terraform destroy
 ```
+
+## Private Endpoint + Vnet (OPTIONAL)
+
+### Limitation
+
+The Consumption (Y1) plan used here does not support Private Endpoints. However the Private Endpoint 
+resources are included in `terraform/main.tf` as commented-out code.
+
+### Steps To Implement
+
+To enable Private Endpoints, one change is required in `main.tf`:
+```hcl
+# Change the Service Plan SKU from:
+sku_name = "Y1"      # Consumption (no VNet support)
+
+# To one of:
+sku_name = "FC1"     # Flex Consumption (serverless + VNet support)
+sku_name = "EP1"     # Premium (always warm + VNet support)
+```
+
+Then uncomment the Private Endpoint resources in `main.tf`.
+
+### Architecture with Private Endpoint
+
+The commented code provides five networking resources:
+
+1. **Virtual Network** (10.0.0.0/16) - an isolated private network in Azure
+2. **Subnet** (10.0.1.0/24) - a dedicated slice of the VNet for private endpoints
+3. **Private DNS Zone** (privatelink.azurewebsites.net) - resolves the 
+   function's hostname to a private IP instead of a public one
+4. **DNS Zone VNet Link** - connects the DNS zone to the VNet so internal 
+   resources use private name resolution
+5. **Private Endpoint** - creates a network interface with a private IP 
+   that routes traffic to the Function App
